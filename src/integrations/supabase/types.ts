@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      courses: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          duration: string
+          enrolled_count: number | null
+          id: string
+          image_url: string | null
+          instructor: string
+          level: string
+          price: number | null
+          rating: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          duration: string
+          enrolled_count?: number | null
+          id?: string
+          image_url?: string | null
+          instructor: string
+          level: string
+          price?: number | null
+          rating?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          enrolled_count?: number | null
+          id?: string
+          image_url?: string | null
+          instructor?: string
+          level?: string
+          price?: number | null
+          rating?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -52,6 +100,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      user_enrollments: {
+        Row: {
+          completed: boolean | null
+          course_id: string
+          enrolled_at: string
+          id: string
+          progress: number | null
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          course_id: string
+          enrolled_at?: string
+          id?: string
+          progress?: number | null
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          course_id?: string
+          enrolled_at?: string
+          id?: string
+          progress?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

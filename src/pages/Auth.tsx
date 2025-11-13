@@ -66,8 +66,7 @@ const Auth = () => {
 
       // only redirect after normal sign-in
       if (event === 'SIGNED_IN') {
-        // your code to navigate after sign-in, e.g. navigate('/')
-        navigate('/');
+        navigate('/dashboard');
       }
     });
 
