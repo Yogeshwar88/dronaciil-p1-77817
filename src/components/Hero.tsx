@@ -1,7 +1,20 @@
 import { Button } from "@/components/ui/button";
-import emblem from "@/assets/emblem.png";
+import { useState, useEffect } from "react";
+import ntsLogo from "@/assets/nts-logo.jpeg";
+import ashokaEmblem from "@/assets/ashoka-emblem.jpeg";
 
 const Hero = () => {
+  const [currentLogo, setCurrentLogo] = useState(0);
+  const logos = [ntsLogo, ashokaEmblem];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentLogo((prev) => (prev + 1) % logos.length);
+    }, 3000); // Rotate every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="py-20 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-6">
@@ -26,11 +39,12 @@ const Hero = () => {
           </div>
 
           <div className="flex justify-center lg:justify-end">
-            <div className="bg-card rounded-2xl shadow-lg p-12 border">
+            <div className="bg-card rounded-2xl shadow-lg p-12 border relative overflow-hidden">
               <img 
-                src={emblem} 
-                alt="Indian Government Emblem" 
-                className="w-64 h-auto"
+                src={logos[currentLogo]} 
+                alt={currentLogo === 0 ? "NTS CCGS CIIL Mysore Logo" : "Ashoka Emblem"} 
+                className="w-64 h-auto transition-opacity duration-500 animate-fade-in"
+                key={currentLogo}
               />
             </div>
           </div>

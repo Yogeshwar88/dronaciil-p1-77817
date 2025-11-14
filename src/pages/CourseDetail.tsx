@@ -79,13 +79,13 @@ const CourseDetail = () => {
 
       // Fetch course modules
       const { data: modulesData, error: modulesError } = await supabase
-        .from("course_modules")
+        .from("course_modules" as any)
         .select("*")
         .eq("course_id", courseId)
         .order("order_number", { ascending: true });
 
       if (modulesError) throw modulesError;
-      setModules(modulesData || []);
+      setModules((modulesData as any) || []);
 
       // Check if user is enrolled
       const { data: { user } } = await supabase.auth.getUser();
