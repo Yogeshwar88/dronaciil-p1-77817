@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ntsLogo from "@/assets/nts-logo.jpeg";
 import ashokaEmblem from "@/assets/ashoka-emblem.jpeg";
 
 const Hero = () => {
+  const navigate = useNavigate();
   const [currentLogo, setCurrentLogo] = useState(0);
   const logos = [ntsLogo, ashokaEmblem];
 
@@ -29,10 +31,17 @@ const Hero = () => {
               Languages.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 py-6 text-base">
+              <Button 
+                onClick={() => navigate('/dashboard')}
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 py-6 text-base"
+              >
                 Explore Courses
               </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-6 text-base font-semibold">
+              <Button 
+                onClick={() => navigate('/auth')}
+                variant="outline" 
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-6 text-base font-semibold"
+              >
                 Get Started
               </Button>
             </div>

@@ -44,7 +44,7 @@ const Dashboard = () => {
 
   const fetchCourses = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("courses")
         .select("*")
         .order("rating", { ascending: false });
