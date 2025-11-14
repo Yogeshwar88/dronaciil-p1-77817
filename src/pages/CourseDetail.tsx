@@ -68,7 +68,7 @@ const CourseDetail = () => {
       setLoading(true);
 
       // Fetch course details
-      const { data: courseData, error: courseError } = await supabase
+      const { data: courseData, error: courseError } = await (supabase as any)
         .from("courses")
         .select("*")
         .eq("id", courseId)
@@ -78,19 +78,19 @@ const CourseDetail = () => {
       setCourse(courseData);
 
       // Fetch course modules
-      const { data: modulesData, error: modulesError } = await supabase
-        .from("course_modules" as any)
+      const { data: modulesData, error: modulesError } = await (supabase as any)
+        .from("course_modules")
         .select("*")
         .eq("course_id", courseId)
         .order("order_number", { ascending: true });
 
       if (modulesError) throw modulesError;
-      setModules((modulesData as any) || []);
+      setModules(modulesData || []);
 
       // Check if user is enrolled
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        const { data: enrollment } = await supabase
+        const { data: enrollment } = await (supabase as any)
           .from("user_enrollments")
           .select("id")
           .eq("user_id", user.id)
@@ -117,7 +117,7 @@ const CourseDetail = () => {
         return;
       }
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("user_enrollments")
         .insert({
           user_id: user.id,
@@ -133,7 +133,7 @@ const CourseDetail = () => {
       
       // Update enrollment count
       if (course) {
-        await supabase
+        await (supabase as any)
           .from("courses")
           .update({ enrolled_count: (course.enrolled_count || 0) + 1 })
           .eq("id", courseId);
