@@ -199,7 +199,11 @@ const Dashboard = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCourses.map((course) => (
-              <Card key={course.id} className="overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <Card 
+                key={course.id} 
+                className="overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                onClick={() => navigate(`/courses/${course.id}`)}
+              >
                 <div className="relative overflow-hidden h-48">
                   <img
                     src={course.image_url || "/placeholder.svg"}
@@ -239,8 +243,14 @@ const Dashboard = () => {
                   <div>
                     <p className="text-2xl font-bold">₹{course.price.toLocaleString()}</p>
                   </div>
-                  <Button className="bg-primary hover:bg-primary/90">
-                    Enroll Now
+                  <Button 
+                    className="bg-primary hover:bg-primary/90"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/courses/${course.id}`);
+                    }}
+                  >
+                    View Course
                   </Button>
                 </CardFooter>
               </Card>
